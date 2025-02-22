@@ -2,7 +2,9 @@
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
 import Image from 'next/image';
-
+import { MdEmail } from "react-icons/md";
+import { FaInstagram, FaLinkedin, FaWhatsapp, FaGithub } from "react-icons/fa";
+import { motion } from 'framer-motion';
 
 export default function HomePage() {
   const { theme } = useTheme();
@@ -12,27 +14,27 @@ export default function HomePage() {
   const socialLinks = [
     {
       href: "mailto:your@email.com",
-      icon: "@",
+      icon: <MdEmail className="text-xl" />,
       label: "Email"
     },
     {
       href: "https://instagram.com/yourusername",
-      icon: "@",
+      icon: <FaInstagram className="text-xl" />,
       label: "Instagram"
     },
     {
       href: "https://linkedin.com/in/yourusername",
-      icon: "in",
+      icon: <FaLinkedin className="text-xl" />,
       label: "Linkedin"
     },
     {
       href: "https://wa.me/yourphone",
-      icon: "@",
+      icon: <FaWhatsapp className="text-xl" />,
       label: "Whatsapp"
     },
     {
       href: "https://github.com/yourusername",
-      icon: "@",
+      icon: <FaGithub className="text-xl" />,
       label: "Github"
     }
   ];
@@ -54,72 +56,118 @@ export default function HomePage() {
 
   return (
     <div className="relative flex p-8 md:p-12 min-h-screen justify-center">
-      {/* Background Circle */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gray-700/70 blur-2xl z-0" />
+      {/* Background Circle dengan animasi */}
+      <div
+        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-2xl z-0 ${theme === 'dark' ? 'bg-gray-700/70' : 'bg-gray-400/70'
+          } animate-fadeInScale`}
+      />
 
       {/* Left Column */}
       <div className="flex-1 max-w-md space-y-4 self-center">
-        <h1 className="text-5xl font-bold">
-          I'm <span className="text-[#FF9B9B]">James Adai</span>
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-md">
-          A freelancer who provides services for digital programming and design content needs, for all businesses with more than 10 years of experience
-        </p>
+        <motion.h1
+          className="text-5xl font-bold"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <span className={theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}>I'm</span>{" "}
+          <span className={theme === 'dark' ? 'text-[#FF9B9B]' : 'text-[#5e5c7f]'}>Reyy</span>
+        </motion.h1>
+        <motion.p
+          className={`text-lg max-w-md ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          A seasoned software developer with over 10 years of expertise in crafting robust digital solutions. I specialize in programming, web development, and custom software design for businesses worldwide.
+        </motion.p>
       </div>
 
       {/* Center Column - Profile Image */}
-      <div className="flex-1 relative max-w-xl flex flex-col items-center justify-center mt-20">
-        <Image
-          src="/images/profile-rey.png"
-          alt="Profile picture"
-          width={380}
-          height={380}
-          className="object-cover z-0"
-        />
+      <div className="flex-1 relative max-w-xl flex flex-col items-center justify-center mt-12">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          <Image
+            src="/images/profile-rey.png"
+            alt="Profile picture"
+            width={380}
+            height={380}
+            className={`object-cover z-0 ${theme === 'dark' ? 'opacity-85' : 'opacity-95'
+              }`}
+          />
+        </motion.div>
 
         {/* Social Media Links Box */}
-        <div className="mt-[-5px] bg-gray-800 p-4 rounded-xl flex gap-8 items-center z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className={`mt-[-5px] p-4 rounded-xl flex gap-8 items-center z-10 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+            }`}
+        >
           <div className="flex items-center gap-4">
             {socialLinks.map((link, index) => (
-              <a
+              <motion.a
                 key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
                 href={link.href}
-                className="bg-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 text-gray-300 hover:text-[#FF9B9B] hover:bg-gray-600 transition-all"
+                className={`px-6 py-4 rounded-lg flex items-center gap-2 transition-all ${theme === 'dark'
+                    ? 'bg-gray-700 text-gray-300 hover:text-[#FF9B9B] hover:bg-gray-600'
+                    : 'bg-gray-100 text-gray-700 hover:text-[#FF9B9B] hover:bg-gray-200'
+                  }`}
               >
-                <span>{link.icon}</span>
+                {link.icon}
                 <span>{link.label}</span>
-              </a>
+              </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Right Column */}
       <div className="flex-1 max-w-md space-y-4 self-center">
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Services</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Let's build quality products in programming and design with my services
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <h2 className={`text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}`}>
+            Services
+          </h2>
+          <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+          Let’s create innovative software solutions—custom web apps, mobile apps, and scalable systems tailored to your business needs. Ready to elevate your digital presence?
           </p>
-          <button className="mt-4 text-[#FF9B9B] hover:underline">
+          <motion.button
+            className="mt-4 text-[#FF9B9B] hover:underline"
+            whileHover={{ x: 10 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          >
             show more →
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
-        <div className="mt-8 flex gap-4">
-          <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-[#FF9B9B]">
-            <span className="sr-only">Facebook</span>
-          </a>
-          <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-[#FF9B9B]">
-            <span className="sr-only">Twitter</span>
-          </a>
-          <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-[#FF9B9B]">
-            <span className="sr-only">Instagram</span>
-          </a>
-          <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-[#FF9B9B]">
-            <span className="sr-only">Pinterest</span>
-          </a>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-8 flex gap-4"
+        >
+          {['Facebook', 'Twitter', 'Instagram', 'Pinterest'].map((social) => (
+            <a
+              key={social}
+              href="#"
+              className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} hover:text-[#FF9B9B]`}
+            >
+              <span className="sr-only">{social}</span>
+            </a>
+          ))}
+        </motion.div>
       </div>
     </div>
   );
