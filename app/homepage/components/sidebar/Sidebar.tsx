@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes';
 import { FiSun, FiMoon } from 'react-icons/fi'
 import { FaLanguage } from 'react-icons/fa'
 import { FaHome, FaTachometerAlt, FaUser, FaCode, FaGlobe, FaMobile, FaPalette } from 'react-icons/fa'
-import { FiChevronRight } from 'react-icons/fi'
+import { FiChevronRight, FiMenu, FiX } from 'react-icons/fi'
 
 
 
@@ -15,6 +15,7 @@ export default function Sidebar() {
     const [language, setLanguage] = useState('id');
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -47,25 +48,54 @@ export default function Sidebar() {
         { id: 'uiux-porto', label: 'UI/UX Porto', href: '#', icon: <FaPalette /> },
     ];
 
-    return (
-        <aside className={`w-64 p-6 fixed h-full transition-colors duration-300 ${theme === 'dark' ? 'bg-[#1F2937] text-white' : 'bg-[#F7FAFC] text-gray-800'}`}>
-            <div className="flex flex-col">
-                <div className="mb-8">
+    return ( 
+        <>
+            {/* Hamburger Button - Visible on mobile */}
+            <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+
+                 
+                className={`lg:hidden fixed top-4 right-4 z-50 p-2 rounded-lg ${theme === 'dark'
+                        ? 'bg-gray-800 text-[#FF9B9B] hover:bg-gray-700'
+                        : 'bg-gray-100 text-[#E53E3E] hover:bg-gray-200'
+                    }`}
+            >
+                {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+            </button>
+
+            {/* Overlay - Visible when sidebar is open on mobile */}
+            {isSidebarOpen && (
+                <div
+                    className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
+            {/* Sidebar */}
+            <aside className={`w-64 p-6 fixed h-full transition-all duration-300 z-40
+                ${theme === 'dark' ? 'bg-[#1F2937] text-white' : 'bg-[#F7FAFC] text-gray-800'}
+                ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+            >
+                <div className="mb-6">
                     <Image
                         src="/images/logo-rey.png"
                         alt="Profile"
-                        width={100}
-                        height={100}
+                        width={80}
+                        height={80}
                         className=""
                     />
                 </div>
 
                 <div className="mb-4">
-                    <h1 className={`text-2xl mb-2 ${theme === 'dark' ? 'text-[#8BA1B7]' : 'text-[#4A5568]'}`}>Selamat Datang !</h1>
-                    <p className={`text-sm ${theme === 'dark' ? 'text-[#8BA1B7]' : 'text-[#4A5568]'}`}>Diperbarui pada : 21 Feb 2025</p>
+                    <h1 className={`text-2xl mb-2 ${theme === 'dark' ? 'text-[#8BA1B7]' : 'text-[#4A5568]'}`}>
+                        Selamat Datang !
+                    </h1>
+                    <p className={`text-sm ${theme === 'dark' ? 'text-[#8BA1B7]' : 'text-[#4A5568]'}`}>
+                        Diperbarui pada : 21 Feb 2025
+                    </p>
 
                     <div className="mt-4 space-y-2">
-                        {/* Theme Toggle - New Style */}
+                        {/* Theme Toggle */}
                         <div className={`inline-flex w-full justify-between mb-2 p-1 rounded-2xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
                             <button
                                 onClick={() => setTheme('light')}
@@ -75,7 +105,7 @@ export default function Sidebar() {
                                     }`}
                             >
                                 <span className="text-lg"><FiSun /></span>
-                                <span>Terang</span>
+                                <span>Light</span>
                             </button>
                             <button
                                 onClick={() => setTheme('dark')}
@@ -85,10 +115,11 @@ export default function Sidebar() {
                                     }`}
                             >
                                 <span className="text-lg"><FiMoon /></span>
-                                <span>Gelap</span>
+                                <span>Dark</span>
                             </button>
                         </div>
 
+                        {/* Language Toggle */}
                         <div className={`inline-flex w-full justify-between p-1 rounded-2xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
                             <button
                                 onClick={() => setLanguage('id')}
@@ -156,7 +187,7 @@ export default function Sidebar() {
                         </Link>
                     ))}
                 </nav>
-            </div>
-        </aside>
+            </aside>
+        </>
     );
 }
