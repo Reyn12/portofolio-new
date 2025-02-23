@@ -59,17 +59,17 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="relative flex p-8 md:p-12 min-h-screen justify-center">
+      <div className="relative flex flex-col lg:flex-row p-4 md:p-8 lg:p-12 min-h-screen justify-center">
         {/* Background Circle dengan animasi */}
         <div
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-2xl z-0 ${theme === 'dark' ? 'bg-gray-700/70' : 'bg-gray-400/70'
+          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[400px] lg:w-[500px] h-[300px] md:h-[400px] lg:h-[500px] rounded-full blur-2xl z-0 ${theme === 'dark' ? 'bg-gray-700/70' : 'bg-gray-400/70'
             } animate-fadeInScale`}
         />
 
         {/* Left Column */}
-        <div className="flex-1 max-w-md space-y-4 self-center">
+        <div className="flex-1 max-w-md space-y-4 self-center mb-8 lg:mb-0 text-center lg:text-left">
           <motion.h1
-            className="text-5xl font-bold"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -82,7 +82,7 @@ export default function HomePage() {
             </span>
           </motion.h1>
           <motion.div
-            className={`text-lg max-w-md ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
+            className={`text-base md:text-lg max-w-md mx-auto lg:mx-0 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -96,7 +96,7 @@ export default function HomePage() {
         </div>
 
         {/* Center Column - Profile Image */}
-        <div className="flex-1 relative max-w-xl flex flex-col items-center justify-center ">
+        <div className="flex-1 relative max-w-xl flex flex-col items-center justify-center mb-8 lg:mb-0">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ export default function HomePage() {
               alt="Profile picture"
               width={380}
               height={380}
-              className={`object-cover z-0 ${theme === 'dark' ? 'opacity-85' : 'opacity-95'
+              className={`object-cover z-0 w-[280px] md:w-[320px] lg:w-[380px] ${theme === 'dark' ? 'opacity-85' : 'opacity-95'
                 }`}
             />
           </motion.div>
@@ -118,9 +118,10 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className={`mt-[-20px] p-4 rounded-xl flex gap-8 items-center z-20 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+            className={`mt-[-20px] p-4 rounded-xl flex lg:gap-8 items-center z-20 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+              }`}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap lg:flex-nowrap items-center gap-2 lg:gap-4">
               {socialLinks.map((link, index) => (
                 <motion.a
                   key={index}
@@ -128,14 +129,15 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
                   whileHover={{ scale: 1.05 }}
-                  href={link.href} target='_blank'
-                  className={`px-6 py-4 rounded-lg flex items-center gap-2 transition-all ${theme === 'dark'
-                    ? 'bg-gray-700 text-gray-300 hover:text-[#FF9B9B] hover:bg-gray-600'
-                    : 'bg-gray-100 text-gray-700 hover:text-[#FF9B9B] hover:bg-gray-200'
+                  href={link.href}
+                  target='_blank'
+                  className={`px-3 lg:px-6 py-2 lg:py-4 rounded-lg flex items-center gap-2 transition-all ${theme === 'dark'
+                      ? 'bg-gray-700 text-gray-300 hover:text-[#FF9B9B] hover:bg-gray-600'
+                      : 'bg-gray-100 text-gray-700 hover:text-[#FF9B9B] hover:bg-gray-200'
                     }`}
                 >
                   {link.icon}
-                  <span>{link.label}</span>
+                  <span className="text-sm lg:text-base">{link.label}</span>
                 </motion.a>
               ))}
             </div>
@@ -143,16 +145,16 @@ export default function HomePage() {
         </div>
 
         {/* Right Column */}
-        <div className="flex-1 max-w-md space-y-4 self-center">
+        <div className="flex-1 max-w-md space-y-4 self-center text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <h2 className={`text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}`}>
+            <h2 className={`text-xl md:text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}`}>
               {translations[language].homepage.services.title}
             </h2>
-            <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            <p className={`text-base md:text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               {translations[language].homepage.services.description}
             </p>
             <motion.button
@@ -168,7 +170,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-8 flex gap-4"
+            className="mt-8 flex justify-center lg:justify-start gap-4"
           >
             {['Facebook', 'Twitter', 'Instagram', 'Pinterest'].map((social) => (
               <a
@@ -184,31 +186,31 @@ export default function HomePage() {
       </div>
 
       {/* Collaboration Card */}
-      <div className="collaboration-card mt-[-100px] mx-10">
+      <div className="collaboration-card mt-8 lg:mt-[-100px] mx-4 md:mx-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className={`p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-800/80' : 'bg-white/90'} shadow-lg w-full z-10`}
+          className={`p-4 md:p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-800/80' : 'bg-white/90'} shadow-lg w-full z-10`}
         >
-          <h2 className={`text-xl font-semibold mb-2 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}`}>
+          <h2 className={`text-lg md:text-xl font-semibold mb-2 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}`}>
             {translations[language].homepage.collaboration.title}
           </h2>
-          <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+          <p className={`text-xs md:text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
             {translations[language].homepage.collaboration.description}
           </p>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <a
               href="mailto:your@email.com"
-              className="px-6 py-4 bg-[#FF9B9B] hover:bg-[#ff8383] text-white rounded-lg text-sm flex items-center gap-2"
+              className="px-4 md:px-6 py-3 md:py-4 bg-[#FF9B9B] hover:bg-[#ff8383] text-white rounded-lg text-sm flex items-center justify-center gap-2"
             >
               {translations[language].homepage.collaboration.contactMe}
             </a>
             <a
               href="/resume.pdf"
-              className={`px-6 py-4 rounded-lg text-sm flex items-center gap-2 ${theme === 'dark'
-                ? 'bg-gray-700 hover:bg-gray-600 text-gray-200'
-                : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+              className={`px-4 md:px-6 py-3 md:py-4 rounded-lg text-sm flex items-center justify-center gap-2 ${theme === 'dark'
+                  ? 'bg-gray-700 hover:bg-gray-600 text-gray-200'
+                  : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                 }`}
             >
               {translations[language].homepage.collaboration.downloadResume}
