@@ -7,20 +7,20 @@ import { FiSun, FiMoon } from 'react-icons/fi'
 import { FaLanguage } from 'react-icons/fa'
 import { FaHome, FaTachometerAlt, FaUser, FaCode, FaGlobe, FaMobile, FaPalette } from 'react-icons/fa'
 import { FiChevronRight, FiMenu, FiX } from 'react-icons/fi'
-
+import { useLanguage } from '@/app/contexts/LanguageContext';
+import { translations } from '@/app/translations';
 
 
 export default function Sidebar() {
     const [activeMenu, setActiveMenu] = useState('home');
-    const [language, setLanguage] = useState('id');
+    const { language, setLanguage } = useLanguage();
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+    
     useEffect(() => {
         setMounted(true);
     }, []);
-
 
     // Skeleton Loading
     if (!mounted) {
@@ -65,13 +65,13 @@ export default function Sidebar() {
     }
 
     const menus = [
-        { id: 'home', label: 'Beranda', href: '#', icon: <FaHome /> },
-        { id: 'dashboard', label: 'Dashboard', href: '#', icon: <FaTachometerAlt /> },
-        { id: 'about', label: 'Tentang', href: '#', icon: <FaUser /> },
-        { id: 'skills', label: 'Keahlian', href: '#', icon: <FaCode /> },
-        { id: 'web-porto', label: 'Web Porto', href: '#', icon: <FaGlobe /> },
-        { id: 'mobile-porto', label: 'Mobile Porto', href: '#', icon: <FaMobile /> },
-        { id: 'uiux-porto', label: 'UI/UX Porto', href: '#', icon: <FaPalette /> },
+        { id: 'home', label: translations[language].menus.home, href: '#', icon: <FaHome /> },
+        { id: 'dashboard', label: translations[language].menus.dashboard, href: '#', icon: <FaTachometerAlt /> },
+        { id: 'about', label: translations[language].menus.about, href: '#', icon: <FaUser /> },
+        { id: 'skills', label: translations[language].menus.skills, href: '#', icon: <FaCode /> },
+        { id: 'web-porto', label: translations[language].menus.webPorto, href: '#', icon: <FaGlobe /> },
+        { id: 'mobile-porto', label: translations[language].menus.mobilePorto, href: '#', icon: <FaMobile /> },
+        { id: 'uiux-porto', label: translations[language].menus.uiuxPorto, href: '#', icon: <FaPalette /> },
     ];
 
     return ( 
@@ -114,10 +114,10 @@ export default function Sidebar() {
 
                 <div className="mb-4">
                     <h1 className={`text-2xl mb-2 ${theme === 'dark' ? 'text-[#8BA1B7]' : 'text-[#4A5568]'}`}>
-                        Selamat Datang !
+                        {translations[language].welcome}
                     </h1>
                     <p className={`text-sm ${theme === 'dark' ? 'text-[#8BA1B7]' : 'text-[#4A5568]'}`}>
-                        Diperbarui pada : 21 Feb 2025
+                        {translations[language].lastUpdated}
                     </p>
 
                     <div className="mt-4 space-y-2">
