@@ -16,27 +16,27 @@ export default function HomePage() {
   // Tambah di bagian atas file, di luar component
   const socialLinks = [
     {
-      href: "mailto:your@email.com",
+      href: "muhammadrenaldi687@gmail.com",
       icon: <MdEmail className="text-xl" />,
       label: "Email"
     },
     {
-      href: "https://instagram.com/yourusername",
+      href: "https://instagram.com/muhreyy12_",
       icon: <FaInstagram className="text-xl" />,
       label: "Instagram"
     },
     {
-      href: "https://linkedin.com/in/yourusername",
+      href: "https://linkedin.com/in/muhammad-renaldi-b83705230",
       icon: <FaLinkedin className="text-xl" />,
       label: "Linkedin"
     },
     {
-      href: "https://wa.me/yourphone",
+      href: "https://wa.me/6281319678220",
       icon: <FaWhatsapp className="text-xl" />,
       label: "Whatsapp"
     },
     {
-      href: "https://github.com/yourusername",
+      href: "https://github.com/Reyn12",
       icon: <FaGithub className="text-xl" />,
       label: "Github"
     }
@@ -128,7 +128,7 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
                   whileHover={{ scale: 1.05 }}
-                  href={link.href}
+                  href={link.href} target='_blank'
                   className={`px-6 py-4 rounded-lg flex items-center gap-2 transition-all ${theme === 'dark'
                     ? 'bg-gray-700 text-gray-300 hover:text-[#FF9B9B] hover:bg-gray-600'
                     : 'bg-gray-100 text-gray-700 hover:text-[#FF9B9B] hover:bg-gray-200'

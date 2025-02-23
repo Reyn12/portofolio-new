@@ -9,14 +9,15 @@ import { FaHome, FaTachometerAlt, FaUser, FaCode, FaGlobe, FaMobile, FaPalette }
 import { FiChevronRight, FiMenu, FiX } from 'react-icons/fi'
 import { useLanguage } from '@/app/contexts/LanguageContext';
 import { translations } from '@/app/translations';
+import { usePathname } from 'next/navigation';
 
 
 export default function Sidebar() {
-    const [activeMenu, setActiveMenu] = useState('home');
     const { language, setLanguage } = useLanguage();
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const pathname = usePathname();
     
     useEffect(() => {
         setMounted(true);
@@ -65,8 +66,8 @@ export default function Sidebar() {
     }
 
     const menus = [
-        { id: 'home', label: translations[language].menus.home, href: '#', icon: <FaHome /> },
-        { id: 'dashboard', label: translations[language].menus.dashboard, href: '#', icon: <FaTachometerAlt /> },
+        { id: 'home', label: translations[language].menus.home, href: '/homepage', icon: <FaHome /> },
+        { id: 'dashboard', label: translations[language].menus.dashboard, href: '/dashboard', icon: <FaTachometerAlt /> },
         { id: 'about', label: translations[language].menus.about, href: '#', icon: <FaUser /> },
         { id: 'skills', label: translations[language].menus.skills, href: '#', icon: <FaCode /> },
         { id: 'web-porto', label: translations[language].menus.webPorto, href: '#', icon: <FaGlobe /> },
@@ -184,7 +185,7 @@ export default function Sidebar() {
                         <Link
                             key={menu.id}
                             href={menu.href}
-                            className={`group flex items-center justify-between py-1.5 px-3 rounded-lg transition-all duration-300 hover:-translate-x-1 ${activeMenu === menu.id
+                            className={`group flex items-center justify-between py-1.5 px-3 rounded-lg transition-all duration-300 hover:-translate-x-1 ${pathname === menu.href
                                 ? theme === 'dark'
                                     ? 'bg-gray-800 text-[#FF9B9B]'
                                     : 'bg-gray-100 text-[#E53E3E]'
@@ -192,10 +193,10 @@ export default function Sidebar() {
                                     ? 'hover:bg-gray-800 hover:text-[#FF9B9B]'
                                     : 'hover:bg-gray-100 hover:text-[#E53E3E]'
                                 }`}
-                            onClick={() => setActiveMenu(menu.id)}
+                            
                         >
                             <div className="flex items-center gap-2">
-                                <span className={`p-1.5 rounded-lg transition-colors ${activeMenu === menu.id
+                                <span className={`p-1.5 rounded-lg transition-colors ${pathname === menu.href
                                     ? theme === 'dark'
                                         ? 'bg-gray-700'
                                         : 'bg-gray-200'
@@ -207,7 +208,7 @@ export default function Sidebar() {
                                 </span>
                                 <span>{menu.label}</span>
                             </div>
-                            {activeMenu === menu.id && (
+                            {pathname === menu.href && (
                                 <FiChevronRight className="transition-transform duration-300" />
                             )}
                         </Link>

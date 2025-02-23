@@ -3,9 +3,10 @@ import { Lato } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from 'next-themes'
 import { LanguageProvider } from './contexts/LanguageContext';
+import Sidebar from './components/sidebar/Sidebar';
 
 const lato = Lato({
-  weight: ['300', '400', '700'],  // light, regular, bold
+  weight: ['300', '400', '700'],
   subsets: ['latin'],
   variable: '--font-lato',
 });
@@ -25,7 +26,10 @@ export default function RootLayout({
       <body className={`${lato.variable} font-sans antialiased`}>
         <LanguageProvider>
           <ThemeProvider attribute="class" defaultTheme="dark">
-            {children}
+            <div className="flex">
+              <Sidebar />
+              <main className="flex-1 lg:ml-64">{children}</main>
+            </div>
           </ThemeProvider>
         </LanguageProvider>
       </body>
