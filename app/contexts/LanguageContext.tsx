@@ -12,7 +12,7 @@ const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   setLanguage: () => {}
 });
-
+ 
 interface LanguageProviderProps {
   children: ReactNode;
 } 
