@@ -5,10 +5,13 @@ import Image from 'next/image';
 import { MdEmail } from "react-icons/md";
 import { FaInstagram, FaLinkedin, FaWhatsapp, FaGithub } from "react-icons/fa";
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/app/contexts/LanguageContext';
+import { translations } from '@/app/translations';
 
 export default function HomePage() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { language } = useLanguage();
 
   // Tambah di bagian atas file, di luar component
   const socialLinks = [
@@ -71,8 +74,12 @@ export default function HomePage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <span className={theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}>I'm</span>{" "}
-            <span className={theme === 'dark' ? 'text-[#FF9B9B]' : 'text-[#5e5c7f]'}>Reyy</span>
+            <span className={theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}>
+              {translations[language].homepage.intro}
+            </span>{" "}
+            <span className={theme === 'dark' ? 'text-[#FF9B9B]' : 'text-[#5e5c7f]'}>
+              {translations[language].homepage.name}
+            </span>
           </motion.h1>
           <motion.div
             className={`text-lg max-w-md ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
@@ -81,9 +88,9 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <ul className="space-y-2">
-              <li>• Pengembang Mobile & Web</li>
-              <li>• Ahli React Native & Next.js 📱</li>
-              <li>• Berdomisili di Bandung, ID 🚀</li>
+              {translations[language].homepage.skills.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
             </ul>
           </motion.div>
         </div>
@@ -143,17 +150,17 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <h2 className={`text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}`}>
-              Layanan
+              {translations[language].homepage.services.title}
             </h2>
             <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-              Spesialis bikin website & aplikasi mobile yang sesuai kebutuhan prusahaan. Dari konsep sampai jadi, semua bisa dihandle!
+              {translations[language].homepage.services.description}
             </p>
             <motion.button
               className="mt-4 text-[#FF9B9B] hover:underline"
               whileHover={{ x: 10 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              show more →
+              {translations[language].homepage.services.showMore}
             </motion.button>
           </motion.div>
 
@@ -185,26 +192,26 @@ export default function HomePage() {
           className={`p-6 rounded-xl ${theme === 'dark' ? 'bg-gray-800/80' : 'bg-white/90'} shadow-lg w-full z-10`}
         >
           <h2 className={`text-xl font-semibold mb-2 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-[#5e5c7f]'}`}>
-            🤝 Mari bekerja sama!
+            {translations[language].homepage.collaboration.title}
           </h2>
           <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-            Saya terbuka untuk proyek freelance, jangan ragu untuk mengirim email kepada saya untuk melihat bagaimana kita bisa berkolaborasi.
+            {translations[language].homepage.collaboration.description}
           </p>
           <div className="flex gap-3">
             <a
               href="mailto:your@email.com"
               className="px-6 py-4 bg-[#FF9B9B] hover:bg-[#ff8383] text-white rounded-lg text-sm flex items-center gap-2"
             >
-              📧 Hubungi Saya
+              {translations[language].homepage.collaboration.contactMe}
             </a>
             <a
               href="/resume.pdf"
               className={`px-6 py-4 rounded-lg text-sm flex items-center gap-2 ${theme === 'dark'
-                  ? 'bg-gray-700 hover:bg-gray-600 text-gray-200'
-                  : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                ? 'bg-gray-700 hover:bg-gray-600 text-gray-200'
+                : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                 }`}
             >
-              📄 Unduh Resume
+              {translations[language].homepage.collaboration.downloadResume}
             </a>
           </div>
         </motion.div>
